@@ -198,7 +198,8 @@ def best_act_words_post(post) :
     return best_act_word_feats(chat_tokenize(post.text))
 
 
-# Here again is the setup to build the classifier and apply it to novel text.  No surprises here.
+# Here again is the setup to build the classifier and apply it to novel text.  
+# No surprises here.
 
 # In[13]:
 
@@ -213,7 +214,7 @@ expt3.classify = lambda text : expt3.act_classifier.classify(expt3.preprocess(te
 
 # In[14]:
 
-expt3.act_classifier.show_most_informative_features(20)
+# expt3.act_classifier.show_most_informative_features(20)
 
 
 
