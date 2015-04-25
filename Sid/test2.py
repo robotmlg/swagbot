@@ -1,6 +1,6 @@
 from sympy import *
-
-#biglars@cs.rutgers.edu
+#Notes: Sid is cool
+#btw email biglars@cs.rutgers.edu for internship
 def piplist(list1,point,list2):
         i = 0
         p = point
@@ -11,43 +11,21 @@ def piplist(list1,point,list2):
                 list1.append(list2[i])
             i+=1
         return list1
-m = '''def ctp(string):
-    t = list(string)
-    
-    i = 0
-    while i < len(t):
-        if t[i] == "'":
-            t.pop(i)
-            j = i-1
-            while t[j].isalpha() and j > -1:
-                j-=1
-            try:
-                print t[j],j
-            except:
-                print j
-            j+=1
-          
-            t.insert(j,"(")
-            t = piplist(t,i+1,list(").diff(x)"))
-           
-        i+=1
-    return ''.join(t)'''
 
 
-def pfts(string): #properly format that shit
-
-    def ctp(string):
+def ctp(string, argvar, typevar):
         s = string
         sn = s
-        sn = sn.replace("'",".diff(x)")
+        sn = sn.replace("'",".diff("+argvar+")")
         while sn != s:
             s = sn
-            sn = sn.replace("'",".diff(x)")
-        return sn
- 
-    return ctp(string)
-x = "y(x)'-y(x)"
+            sn = sn.replace("'",".diff("+argvar+")")
+        sn = sn.replace(typevar,typevar+"("+argvar+")")
+        m = exec(""+argvar+"=Symbol('"+argvar+"')\n"+typevar+"=Function('"+typevar+"')\nprint dsolve("+sn+")")
+        return m
 
-print pfts(x)
-exec("x=Symbol('x')\ny=Function('y')\nprint dsolve("+pfts(x)+")")
+    
+x = "y'-y"
+
+pprint(ctp("2*x**2*y''+y'",'x','y'))
 

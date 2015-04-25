@@ -1,0 +1,4 @@
+from urllib2 import *
+
+f = urlopen('http://en.wikipedia.org/wiki/Kurt_Cobain')
+print f
