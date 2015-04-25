@@ -1,18 +1,29 @@
+from collections import OrderedDict
+
 prefix = 'prefix'
 infix = 'infix'
 
-mathverbs = {'multiply': prefix,
-             'times': infix,
-             'divide ':prefix, # extra space so that it's not detected in "divided"
-             'divided':infix,
-             'add' : prefix,
-             'plus': infix,
-             'minus': infix,
-             'subtract': prefix}
+mathverbs=OrderedDict();
+mathverbs['multiply']= {'fix': prefix,'op': '*'}
+mathverbs['divide '] = {'fix': prefix,'op': '/'}
+                  # extra space so that it's not detected in "divided"
+mathverbs['add']     = {'fix': prefix,'op': '+'}
+mathverbs['subtract']= {'fix': prefix,'op': '-'}
+mathverbs['times']   = {'fix': infix, 'op': '*'}
+mathverbs['divided'] = {'fix': infix, 'op': '/'}
+mathverbs['plus']    = {'fix': infix, 'op': '+'}
+mathverbs['minus']   = {'fix': infix, 'op': '-'}
 
 mathpreps = {'to',
              'by',
              'from'}
+
+def is_number(s):
+  try:
+    float(s)
+    return True
+  except ValueError:
+    return False
 
 
 def text2int(textnum, numwords={}):
@@ -54,7 +65,10 @@ def parse_arith(sen):
   except:
     pass
   else:
-    return {'verb':None, 'op1':op1, 'op2':None}
+    return {'verb':None, 'op1':str(op1), 'op2':None}
+
+  if is_number(sen):
+    return {'verb':None, 'op1':sen, 'op2':None}
     
 
   # find the verb in the sentence
@@ -67,7 +81,7 @@ def parse_arith(sen):
     return None
 
   # if it's a prefix verb, find the preposition and then parse
-  if mathverbs[v] is prefix:
+  if mathverbs[v]['fix'] is prefix:
     verb_pos = sen.find(v)
 
     # find the first space for the start of the first operand
@@ -87,12 +101,12 @@ def parse_arith(sen):
     # find the first space after the preposition for the second operand
     op2_pos = sen.find(' ',prep_pos) + 1
 
-    op1  =  sen[op1_pos:prep_pos]
+    op1  =  sen[op1_pos:prep_pos-1]
     op2  =  sen[op2_pos:]
 
 
   # if it's an infix verb, grab the operands from around the verb
-  elif mathverbs[v] is infix:
+  elif mathverbs[v]['fix'] is infix:
     verb_pos = sen.find(v)
 
     # find the first space after the verb for the second operand
@@ -100,7 +114,7 @@ def parse_arith(sen):
     if v is 'divided':
       op2_pos = sen.find(' ',op2_pos) + 1
 
-    op1  =  sen[0:verb_pos]
+    op1  =  sen[0:verb_pos-1]
     op2  =  sen[op2_pos:]
     
   # print mathverbs[v]
@@ -109,5 +123,28 @@ def parse_arith(sen):
   # print op2
 
   return {'verb':v, 'op1':op1, 'op2':op2}
+
+# recursively parse an arithmatic string into numbers and symbols
+def make_arith_string(sen):
+  ret = ''
+  if sen is None or len(sen) == 0:
+    return None
+  p = parse_arith(sen)
+  if is_number(p['op1']) and p['verb'] is None:
+    return p['op1']
+  print p
+  if mathverbs[p['verb']]['fix'] is prefix:
+    ret += '('
+  ret +=  make_arith_string(p['op1'])
+  if mathverbs[p['verb']]['fix'] is prefix:
+    ret += ')'
+  ret += mathverbs[p['verb']]['op']
+  if mathverbs[p['verb']]['fix'] is prefix:
+    ret += '('
+  ret +=  make_arith_string(p['op2'])
+  if mathverbs[p['verb']]['fix'] is prefix:
+    ret += ')'
+  print ret
+  return ret
 
   
