@@ -3,6 +3,8 @@ from collections import OrderedDict
 prefix = 'prefix'
 infix = 'infix'
 
+# store the verbs in an OrderedDict so that we can use the order for order of
+# Operations later
 mathverbs=OrderedDict();
 mathverbs['multiply']= {'fix': prefix,'op': '*'}
 mathverbs['divide '] = {'fix': prefix,'op': '/'}
@@ -103,6 +105,11 @@ def parse_arith(sen):
 
     op1  =  sen[op1_pos:prep_pos-1]
     op2  =  sen[op2_pos:]
+
+    if v is 'subract':
+      temp = op1
+      op1 = op2
+      op2 = temp
 
 
   # if it's an infix verb, grab the operands from around the verb
