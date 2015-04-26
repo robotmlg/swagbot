@@ -1,4 +1,6 @@
 import classifier
+import mathparse
+import insultgen
 
 def respond_question(text, valence) :
     if valence == 'pos' :
@@ -13,7 +15,8 @@ def respond_statement(text, valence) :
     if valence == 'pos' :
         return "Great!  Tell me more."
     else :
-        return "Ugh.  Is anything good happening?"
+        g = insultgen.insultgen()
+        return g.generateInsult()
 
 def respond_bye(text, valence) :
     return "I guess it's time for me to go then."
@@ -25,13 +28,15 @@ def respond_reject(text, valence) :
     if valence == 'pos' :
         return "Well, if you insist!"
     else :
-        return "I still think you should reconsider."
+        g = insultgen.insultgen()
+        return g.generateInsult()
 
 def respond_emphasis(text, valence) :
     if valence == 'pos' :
         return '!!!'
     else :
-        return ":("
+        g = insultgen.insultgen()
+        return g.generateInsult()
 
 
 responses = {'Accept': respond_other,
@@ -52,6 +57,9 @@ responses = {'Accept': respond_other,
 
 
 def respond(text) :
-    act = expt3.classify(text)
-    valence = expt1.classify(text)
+    # if text.split()[0].tolower() == 'solve'
+      
+    act = classifier.expt3.classify(text)
+    valence = classifier.expt1.classify(text)
+    # print act
     return responses[act](text, valence)

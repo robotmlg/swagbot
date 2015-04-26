@@ -75,8 +75,8 @@ def parse_arith(sen):
 
   # find the verb in the sentence
   v = None
-  for v in mathverbs:
-    if v in sen: 
+  for v in sen:
+    if v in mathverbs: 
       break
 
   if v is None:
@@ -95,7 +95,7 @@ def parse_arith(sen):
     for p in mathpreps:
       if p in sen:
         break
-    if p is None:
+    if p == None:
       return None
 
     prep_pos = sen.find(p)
