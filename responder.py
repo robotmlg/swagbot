@@ -2,6 +2,11 @@ import classifier
 import mathparse
 import insultgen
 
+end_text = 'Okay, so long!'
+
+#def respond_math(text) :
+
+
 def respond_question(text, valence) :
     if valence == 'pos' :
         return "I wish I knew."
@@ -19,7 +24,7 @@ def respond_statement(text, valence) :
         return g.generateInsult()
 
 def respond_bye(text, valence) :
-    return "I guess it's time for me to go then."
+    return end_text
 
 def respond_greet(text, valence) :
     return "Hey there!"
