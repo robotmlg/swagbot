@@ -43,13 +43,13 @@ def mathparseRoland(a): #From Rolan=ROland=Nolan=Noland=No Land
                 i+=1
             i-=1
         i+=1
-            
+                    
     a = ''.join(a)
     a = a.split("=") #split by equality sign if present
     if len(a) == 1:
-        return a[0]
+        return [a[0],True]
     else:
-        return a[0] + "-(" + a[1] + ")"
+        return [a[0] + "-(" + a[1] + ")",False]
 
 def detectVariables(a):
     argvar = {}
@@ -81,51 +81,94 @@ def detectVariables(a):
     return argvar
 
 def solver(a):
-    a = mathparseRoland(a) #processes items
-   
-    y =(detectVariables(a)).items() #we now have dependent variables and independent variables
-    t = 0
-    b = 0
-    q = 0
-    for m in y:
-        if m[1] == 't':
-            t = m[0]
-        if m[1] == 'a':
-            b = m[0]
-        if t != 0 and b != 0:
-            break
-    if b == 0:
-        b = "x"
-
-    
-    
-    if t != 0: #We are dealing with a differential equation
-        a = ctp(a,b,t) #converting everything to a diff
-        exec("from sympy import *\n"+
-             b+"=Symbol(\""+b + "\")\n"+
-             t+"=Symbol(\""+t+"\")\n"+
-             "a = str(simplify("+a+"))") #cleaned up expression
-        print "Standardized Functional Expression to: " + a + "=0"
-        try:
-            exec("from sympy import *\n"+
-                 b+"=Symbol(\""+b + "\")\n"+
-                 t+"=Function(\""+t+"\")\n"+
-                 "q=dsolve("+a+")") #evaluate code
-            return q
-        except:
-            return "I must consult with the elders on this functional equation"
-    else:
-        exec("from sympy import *\n"+
-             b+"=Symbol(\""+b + "\")\n"+
-             "a = str(simplify("+a+"))") #cleaned up non variable expression
-        print "Standardized Algebraic Expression to: " + a + "=0"
-        try:
-            exec("from sympy import *\n"+
-                 "q = solve("+a+","+b+")\n")
-            return q
-        except:
-            return "This one is a challenge indeed, call me tomorrow babycakes ;)"
         
+    a = mathparseRoland(a) #processes items
+    print a
+    if a[1]:
+            
+            a = a[0]
+            y =(detectVariables(a)).items() #we now have dependent variables and independent variables
+            t = 0
+            b = 0
+            q = 0
+            for m in y:
+                if m[1] == 't':
+                    t = m[0]
+                if m[1] == 'a':
+                    b = m[0]
+                if t != 0 and b != 0:
+                    break
+            if b == 0:
+                b = "x"
+
+            
+            
+            if t != 0: #We are dealing with a differential equation
+                a = ctp(a,b,t) #converting everything to a diff
+                exec("from sympy import *\n"+
+                     b+"=Symbol(\""+b + "\")\n"+
+                     t+"=Symbol(\""+t+"\")\n"+
+                     "a = str(simplify("+a+"))") #cleaned up expression
+                print "Simplified Functional Expression Expression to: " + a
+              
+            else:
+                exec("from sympy import *\n"+
+                     b+"=Symbol(\""+b + "\")\n"+
+                     "a = str(simplify("+a+"))") #cleaned up non variable expression
+                return "Simplified Algebraic Expression to: " + a
+             
+            
+    else:
+            a = a[0]
+            y =(detectVariables(a)).items() #we now have dependent variables and independent variables
+            t = 0
+            b = 0
+            q = 0
+            for m in y:
+                if m[1] == 't':
+                    t = m[0]
+                if m[1] == 'a':
+                    b = m[0]
+                if t != 0 and b != 0:
+                    break
+            if b == 0:
+                b = "x"
+
+
+            
+            
+            if t != 0: #We are dealing with a differential equation
+                a = ctp(a,b,t) #converting everything to a diff
+                exec("from sympy import *\n"+
+                     b+"=Symbol(\""+b + "\")\n"+
+                     t+"=Symbol(\""+t+"\")\n"+
+                     "a = str(simplify("+a+"))") #cleaned up expression
+                print "Standardized Functional Expression to: " + a + "=0"
+                try:
+                    exec("from sympy import *\n"+
+                         b+"=Symbol(\""+b + "\")\n"+
+                         t+"=Function(\""+t+"\")\n"+
+                         "q=dsolve("+a+")") #evaluate code
+                    return q
+                except:
+                    return "I must consult with the elders on this functional equation"
+            else:
+
+                
+                
+                exec("from sympy import *\n"+
+                     b+"=Symbol(\""+b + "\")\n"+
+                     "a = str(simplify("+a+"))") #cleaned up non variable expression
+                print "Standardized Algebraic Expression to: " + a + "=0"
+                try:
+                    exec("from sympy import *\n"+
+                         "q = solve("+a+","+b+")\n")
+                    return q
+                
+                except:
+                    return "This one is a challenge indeed, call me tomorrow babycakes ;)"
+        
+
 
 x = "y''-2y'+5y=0"
 
@@ -135,7 +178,7 @@ while True:
     if x == "e":
         break
     else:
-        solver(x)
+        print solver(x)
         
 
 
