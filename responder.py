@@ -1,13 +1,35 @@
 import classifier
 import mathparse
 import insultgen
+import wikistuff
 
 end_text = 'Okay, so long!'
+born_list = ['born', 'birth', 'birthday']
+death_list = ['die', 'died', 'death']
 
 #def respond_math(text) :
 
 
-def respond_question(text, valence) :
+def respond_question(text, valence):
+    t = text.lower().split()
+    if t[0] == 'when':
+      #get the name
+      name = text[text.find(' '):] #skip over "when"
+      name = name[text.find(' '):] #skip over verb
+      name = name[:name.rfind(' ')]
+      name_l = name.split()
+      url = "http://en.wikipedia.org/wiki/" + name_l[0]
+      if len(name_l) > 1:
+        url += '_' + name_l[1]
+
+      if any(word in text for word in born_list):
+        return wikistuff.findTheBirth(url)
+      if any(word in text for word in death_list):
+        return wikistuff.findTheDeath(url)
+        
+
+      return name
+      
     if valence == 'pos' :
         return "I wish I knew."
     else :
@@ -62,7 +84,7 @@ responses = {'Accept': respond_other,
 
 
 def respond(text) :
-    # if text.split()[0].tolower() == 'solve'
+    # if text.split()[0].lower() == 'solve'
       
     act = classifier.expt3.classify(text)
     valence = classifier.expt1.classify(text)
