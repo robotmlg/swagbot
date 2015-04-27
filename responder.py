@@ -1,6 +1,7 @@
 import mathparse
 import insultgen
 import wikistuff
+import test2
 import classifier
 
 end_text = 'Okay, so long!'
@@ -9,8 +10,11 @@ death_list = ['die', 'died', 'death']
 math_words = ['solve', 'calculate']
 
 def respond_math(text) :
-  print text
-  return mathparse.make_arith_string(text)
+  try:
+    math = mathparse.make_arith_string(text)
+  except:
+    return test2.solver(text)
+  return test2.solver(math)
 
 
 def respond_question(text, valence):
@@ -18,17 +22,24 @@ def respond_question(text, valence):
     if t[0] == 'when':
       #get the name
       name = text[text.find(' ')+1:] #skip over "when"
-      name = name[text.find(' ')+1:] #skip over verb
+      name = name[text.find(' '):] #skip over verb
       name = name[:name.rfind(' ')]
       name_l = name.split()
-      url = "http://en.wikipedia.org/wiki/" + name_l[0]
-      if len(name_l) > 1:
-        url += '_' + name_l[1]
+      url = "http://en.wikipedia.org/wiki/" + '_'.join(name_l)
+      #print url
 
       if any(word in text for word in born_list):
-        return wikistuff.findTheBirth(url)
+        try:
+          ret = wikistuff.findTheBirth(url)
+        except:
+          return "Oops, I couldn't find that person."
+        return 'They were born on '+ret
       if any(word in text for word in death_list):
-        return wikistuff.findTheDeath(url)
+        try:
+          ret = wikistuff.findTheDeath(url)
+        except:
+          return "Oops, I couldn't find that person."
+        return 'They died on '+ret
       return name
 
     if t[0] == 'what' and t[1] == 'is':
@@ -93,6 +104,8 @@ def respond(text) :
       # strip opening word
       math = text[text.find(' ')+1:]
       return respond_math(math)
+    elif any(word in text.lower() for word in mathparse.mathverbs):
+      return respond_math(text)
     act = classifier.expt3.classify(text)
     valence = classifier.expt1.classify(text)
     # print act

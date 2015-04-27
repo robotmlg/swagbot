@@ -81,7 +81,7 @@ def parse_arith(sen):
       break
 
   if v is None:
-    return None
+    raise Exception('invalid math')
 
   # if it's a prefix verb, find the preposition and then parse
   if mathverbs[v]['fix'] is prefix:

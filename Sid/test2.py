@@ -129,14 +129,14 @@ def solver(a):
 
 x = "y''-2y'+5y=0"
 
-while True:
-
-    x = raw_input("Enter Expression for Processing: ")
-    if x == "e":
-        break
-    else:
-        solver(x)
-        
+#while True:
+#
+#    x = raw_input("Enter Expression for Processing: ")
+#    if x == "e":
+#        break
+#    else:
+#        solver(x)
+#        
 
 
 
