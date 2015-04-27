@@ -83,7 +83,7 @@ def detectVariables(a):
 def solver(a):
         
     a = mathparseRoland(a) #processes items
-    print a
+    # print a
     if a[1]:
             
             a = a[0]
