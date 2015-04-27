@@ -1,7 +1,7 @@
-import classifier
 import mathparse
 import insultgen
 import wikistuff
+import classifier
 
 end_text = 'Okay, so long!'
 born_list = ['born', 'birth', 'birthday']
