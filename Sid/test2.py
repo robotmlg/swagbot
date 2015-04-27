@@ -14,7 +14,7 @@ def piplist(list1,point,list2):
         return list1
 
 
-def ctp(string, argvar, typevar,q):
+def ctp(string, argvar, typevar):
     s = string
     sn = s
     sn = sn.replace("'",".diff("+argvar+")")
@@ -22,8 +22,8 @@ def ctp(string, argvar, typevar,q):
         s = sn
         sn = sn.replace("'",".diff("+argvar+")")
     sn = sn.replace(typevar,typevar+"("+argvar+")")
-    
-    exec(argvar+"=Symbol('"+argvar+"')\n"+typevar+"=Function('"+typevar+"')\nq=dsolve("+sn+")")
+    return sn
+    #exec(argvar+"=Symbol('"+argvar+"')\n"+typevar+"=Function('"+typevar+"')\nq=dsolve("+sn+")")
     
 
 def mathparseRoland(a): #From Rolan=ROland=Nolan=Noland=No Land
@@ -100,13 +100,17 @@ def solver(a):
     
     
     if t != 0: #We are dealing with a differential equation
+        a = ctp(a,b,t) #converting everything to a diff
         exec("from sympy import *\n"+
              b+"=Symbol(\""+b + "\")\n"+
              t+"=Symbol(\""+t+"\")\n"+
              "a = str(simplify("+a+"))") #cleaned up expression
         print "Standardized Functional Expression to: " + a + "=0"
         try:
-            ctp(a,b,t,q)
+            exec("from sympy import *\n"+
+                 b+"=Symbol(\""+b + "\")\n"+
+                 t+"=Function(\""+t+"\")\n"+
+                 "q=dsolve("+a+")") #evaluate code
             print q
         except:
             print "I must consult with the elders on this functional equation"
