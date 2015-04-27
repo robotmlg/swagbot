@@ -1,6 +1,51 @@
+import mathparse
+import insultgen
+import wikistuff
+import test2
 import classifier
 
-def respond_question(text, valence) :
+end_text = 'Okay, so long!'
+born_list = ['born', 'birth', 'birthday']
+death_list = ['die', 'died', 'death']
+math_words = ['solve', 'calculate']
+
+def respond_math(text) :
+  try:
+    math = mathparse.make_arith_string(text)
+  except:
+    return test2.solver(text)
+  return test2.solver(math)
+
+
+def respond_question(text, valence):
+    t = text.lower().split()
+    if t[0] == 'when':
+      #get the name
+      name = text[text.find(' ')+1:] #skip over "when"
+      name = name[text.find(' '):] #skip over verb
+      name = name[:name.rfind(' ')]
+      name_l = name.split()
+      url = "http://en.wikipedia.org/wiki/" + '_'.join(name_l)
+      #print url
+
+      if any(word in text for word in born_list):
+        try:
+          ret = wikistuff.findTheBirth(url)
+        except:
+          return "Oops, I couldn't find that person."
+        return 'They were born on '+ret
+      if any(word in text for word in death_list):
+        try:
+          ret = wikistuff.findTheDeath(url)
+        except:
+          return "Oops, I couldn't find that person."
+        return 'They died on '+ret
+      return name
+
+    if t[0] == 'what' and t[1] == 'is':
+      math = ' '.join(t[2:])
+      return respond_math(math)
+      
     if valence == 'pos' :
         return "I wish I knew."
     else :
@@ -13,10 +58,11 @@ def respond_statement(text, valence) :
     if valence == 'pos' :
         return "Great!  Tell me more."
     else :
-        return "Ugh.  Is anything good happening?"
+        g = insultgen.insultgen()
+        return g.generateInsult()
 
 def respond_bye(text, valence) :
-    return "I guess it's time for me to go then."
+    return end_text
 
 def respond_greet(text, valence) :
     return "Hey there!"
@@ -25,13 +71,15 @@ def respond_reject(text, valence) :
     if valence == 'pos' :
         return "Well, if you insist!"
     else :
-        return "I still think you should reconsider."
+        g = insultgen.insultgen()
+        return g.generateInsult()
 
 def respond_emphasis(text, valence) :
     if valence == 'pos' :
         return '!!!'
     else :
-        return ":("
+        g = insultgen.insultgen()
+        return g.generateInsult()
 
 
 responses = {'Accept': respond_other,
@@ -51,7 +99,14 @@ responses = {'Accept': respond_other,
              'ynQuestion': respond_question}
 
 
-def respond(text) :
-    act = expt3.classify(text)
-    valence = expt1.classify(text)
+def respond(text) :  
+    if any(word in text.lower() for word in math_words):
+      # strip opening word
+      math = text[text.find(' ')+1:]
+      return respond_math(math)
+    elif any(word in text.lower() for word in mathparse.mathverbs):
+      return respond_math(text)
+    act = classifier.expt3.classify(text)
+    valence = classifier.expt1.classify(text)
+    # print act
     return responses[act](text, valence)

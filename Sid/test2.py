@@ -83,7 +83,7 @@ def detectVariables(a):
 def solver(a):
         
     a = mathparseRoland(a) #processes items
-    print a
+    # print a
     if a[1]:
             
             a = a[0]
@@ -172,14 +172,14 @@ def solver(a):
 
 x = "y''-2y'+5y=0"
 
-while True:
-
-    x = raw_input("Enter Expression for Processing: ")
-    if x == "e":
-        break
-    else:
-        print solver(x)
-        
+#while True:
+#
+#    x = raw_input("Enter Expression for Processing: ")
+#    if x == "e":
+#        break
+#    else:
+#        solver(x)
+#        
 
 
 

@@ -18,7 +18,8 @@ mathverbs['minus']   = {'fix': infix, 'op': '-'}
 
 mathpreps = {'to',
              'by',
-             'from'}
+             'from',
+             'and'}
 
 def is_number(s):
   try:
@@ -80,7 +81,7 @@ def parse_arith(sen):
       break
 
   if v is None:
-    return None
+    raise Exception('invalid math')
 
   # if it's a prefix verb, find the preposition and then parse
   if mathverbs[v]['fix'] is prefix:
@@ -106,7 +107,7 @@ def parse_arith(sen):
     op1  =  sen[op1_pos:prep_pos-1]
     op2  =  sen[op2_pos:]
 
-    if v is 'subract':
+    if v is 'subtract':
       temp = op1
       op1 = op2
       op2 = temp
@@ -139,7 +140,7 @@ def make_arith_string(sen):
   p = parse_arith(sen)
   if is_number(p['op1']) and p['verb'] is None:
     return p['op1']
-  print p
+  # print p
   if mathverbs[p['verb']]['fix'] is prefix:
     ret += '('
   ret +=  make_arith_string(p['op1'])
@@ -151,7 +152,7 @@ def make_arith_string(sen):
   ret +=  make_arith_string(p['op2'])
   if mathverbs[p['verb']]['fix'] is prefix:
     ret += ')'
-  print ret
+  # print ret
   return ret
 
   
