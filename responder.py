@@ -6,16 +6,19 @@ import wikistuff
 end_text = 'Okay, so long!'
 born_list = ['born', 'birth', 'birthday']
 death_list = ['die', 'died', 'death']
+math_words = ['solve', 'calculate']
 
-#def respond_math(text) :
+def respond_math(text) :
+  print text
+  return mathparse.make_arith_string(text)
 
 
 def respond_question(text, valence):
     t = text.lower().split()
     if t[0] == 'when':
       #get the name
-      name = text[text.find(' '):] #skip over "when"
-      name = name[text.find(' '):] #skip over verb
+      name = text[text.find(' ')+1:] #skip over "when"
+      name = name[text.find(' ')+1:] #skip over verb
       name = name[:name.rfind(' ')]
       name_l = name.split()
       url = "http://en.wikipedia.org/wiki/" + name_l[0]
@@ -26,9 +29,11 @@ def respond_question(text, valence):
         return wikistuff.findTheBirth(url)
       if any(word in text for word in death_list):
         return wikistuff.findTheDeath(url)
-        
-
       return name
+
+    if t[0] == 'what' and t[1] == 'is':
+      math = ' '.join(t[2:])
+      return respond_math(math)
       
     if valence == 'pos' :
         return "I wish I knew."
@@ -83,9 +88,11 @@ responses = {'Accept': respond_other,
              'ynQuestion': respond_question}
 
 
-def respond(text) :
-    # if text.split()[0].lower() == 'solve'
-      
+def respond(text) :  
+    if any(word in text.lower() for word in math_words):
+      # strip opening word
+      math = text[text.find(' ')+1:]
+      return respond_math(math)
     act = classifier.expt3.classify(text)
     valence = classifier.expt1.classify(text)
     # print act
