@@ -111,9 +111,9 @@ def solver(a):
                  b+"=Symbol(\""+b + "\")\n"+
                  t+"=Function(\""+t+"\")\n"+
                  "q=dsolve("+a+")") #evaluate code
-            print q
+            return q
         except:
-            print "I must consult with the elders on this functional equation"
+            return "I must consult with the elders on this functional equation"
     else:
         exec("from sympy import *\n"+
              b+"=Symbol(\""+b + "\")\n"+
@@ -122,9 +122,9 @@ def solver(a):
         try:
             exec("from sympy import *\n"+
                  "q = solve("+a+","+b+")\n")
-            print q
+            return q
         except:
-            print "This one is a challenge indeed"
+            return "This one is a challenge indeed, call me tomorrow babycakes ;)"
         
 
 x = "y''-2y'+5y=0"
