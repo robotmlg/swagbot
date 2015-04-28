@@ -12,6 +12,7 @@ math_words = ['solve', 'calculate']
 
 
 def respond_math(text) :
+  text = text.replace('?','')
   try:
     math = mathparse.make_arith_string(text)
   except:
