@@ -1,4 +1,5 @@
 from urllib2 import *
+from wikipedia import *
 t1 = "http://en.wikipedia.org/wiki/Leonhard_Euler"
 t2 = "http://en.wikipedia.org/wiki/Kurt_Cobain"
 t3 = "http://en.wikipedia.org/wiki/Nelson_Mandela"
@@ -41,3 +42,31 @@ def findTheBirth(url):
                     record = True
 
 #print findTheBirth(t1)
+def getInfo(name):
+    tempAns = wikipedia.summary(name)
+    result = ""
+    record = True
+    period = 0
+    for i in range(len(tempAns)):
+        x = tempAns[i]
+        if tempAns[i] == "(":
+            record = False
+        elif tempAns[i] == "." and record == True:
+            result += tempAns[i]
+            period += 1
+            if period == 2:
+                return result
+        elif record == True:
+            result += tempAns[i]
+        elif tempAns[i] == ")":
+            record = True
+    return result
+
+print getInfo("Euler")
+print getInfo("Archimedes")
+print getInfo("John F. Kennedy")
+print getInfo("Tesla")
+print getInfo("Taylor Swift")
+print getInfo("Leonardo Dicaprio")
+print getInfo("Matt Damon")
+print getInfo("Pythagoras")
