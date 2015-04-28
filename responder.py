@@ -1,7 +1,7 @@
 import mathparse
 import insultgen
 import wikistuff
-import test2
+import test3
 import classifier
 
 end_text = 'Okay, so long!'
@@ -13,8 +13,8 @@ def respond_math(text) :
   try:
     math = mathparse.make_arith_string(text)
   except:
-    return test2.solver(text)
-  return test2.solver(math)
+    return test3.solver(text)
+  return test3.solver(math)
 
 
 def respond_question(text, valence):
