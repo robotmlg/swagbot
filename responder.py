@@ -2,12 +2,14 @@ import mathparse
 import insultgen
 import wikistuff
 import test3
+import random
 import classifier
 
 end_text = 'Okay, so long!'
 born_list = ['born', 'birth', 'birthday']
 death_list = ['die', 'died', 'death']
 math_words = ['solve', 'calculate']
+
 
 def respond_math(text) :
   try:
@@ -58,16 +60,25 @@ def respond_question(text, valence):
       return respond_math(math)
       
     if valence == 'pos' :
-        return "I wish I knew."
+        return random.choice(["I wish I knew.",
+                              "I'm not sure how to answer that.",
+                              "Can't quite understand your question there, friend.",
+                              "Could you repeat that, and go slow this time."])
     else :
-        return "That's a tough question."
+        return random.choice(["That's a tough question.",
+                              "Hard to know...",
+                              "Hmm, I'll need to think about that one for a while. I'll get back to you.",
+                              "Oh, you must think you're pretty clever, asking that."])
 
 def respond_other(text, valence) :
     return ":P  Well, what next?"
 
 def respond_statement(text, valence) :
     if valence == 'pos' :
-        return "Great!  Tell me more."
+        return random.choice(["Great!  Tell me more.",
+                              "Wow, that's really interesting.",
+                              "Awesome!",
+                              "Man, that's pretty cool."])
     else :
         g = insultgen.insultgen()
         return g.generateInsult()
@@ -76,18 +87,29 @@ def respond_bye(text, valence) :
     return end_text
 
 def respond_greet(text, valence) :
-    return "Hey there!"
+    return random.choice(["Hey there!",
+                          "Hi, friend!",
+                          "Hello!",
+                          "Howdy!",
+                          "Greetings, fellow human!"])
 
 def respond_reject(text, valence) :
     if valence == 'pos' :
-        return "Well, if you insist!"
+        return random.choice(["Well, if you insist!",
+                              "Yeah, I didn't really like that either.",
+                              "Yeah, it sucked.",
+                              "Alright, if you say do."])
     else :
         g = insultgen.insultgen()
         return g.generateInsult()
 
 def respond_emphasis(text, valence) :
     if valence == 'pos' :
-        return '!!!'
+        return random.choice(['!!!',
+                              'Wow!',
+                              'Holy cow!',
+                              'Gadzooks!',
+                              'Good golly gosh!'])
     else :
         g = insultgen.insultgen()
         return g.generateInsult()
