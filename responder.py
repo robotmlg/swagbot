@@ -24,8 +24,7 @@ def respond_question(text, valence):
       name = text[text.find(' ')+1:] #skip over "when"
       name = name[text.find(' '):] #skip over verb
       name = name[:name.rfind(' ')]
-      name_l = name.split()
-      url = "http://en.wikipedia.org/wiki/" + '_'.join(name_l)
+      url = "http://en.wikipedia.org/wiki/" + name.replace(' ','_')
       #print url
 
       if any(word in text for word in born_list):
