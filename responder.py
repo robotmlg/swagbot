@@ -42,6 +42,18 @@ def respond_question(text, valence):
         return 'They died on '+ret
       return name
 
+    if t[0] == 'who' and (t[1] == 'is' or t[1] == 'was'):
+      #get the name
+      name = text[text.find(' ')+1:] #skip over "when"
+      name = name[text.find(' '):] #skip over verb
+      if '?' in name:
+        name = name[:name.rfind('?')]
+      try:
+        ret = wikistuff.getInfo(name)
+      except:
+        return "Oops, I couldn't find that person."
+      return ret
+
     if t[0] == 'what' and t[1] == 'is':
       math = ' '.join(t[2:])
       return respond_math(math)

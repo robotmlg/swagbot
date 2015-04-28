@@ -62,11 +62,11 @@ def getInfo(name):
             record = True
     return result
 
-print getInfo("Euler")
-print getInfo("Archimedes")
-print getInfo("John F. Kennedy")
-print getInfo("Tesla")
-print getInfo("Taylor Swift")
-print getInfo("Leonardo Dicaprio")
-print getInfo("Matt Damon")
-print getInfo("Pythagoras")
+# print getInfo("Euler")
+# print getInfo("Archimedes")
+# print getInfo("John F. Kennedy")
+# print getInfo("Tesla")
+# print getInfo("Taylor Swift")
+# print getInfo("Leonardo Dicaprio")
+# print getInfo("Matt Damon")
+# print getInfo("Pythagoras")
