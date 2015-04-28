@@ -15,6 +15,7 @@ def piplist(list1,point,list2):
 
 
 def ctp(string, argvar, typevar):
+        
     s = string
     sn = s
     sn = sn.replace("'",".diff("+argvar+")")
@@ -92,15 +93,17 @@ def solver(a):
             t = m[0]
         if m[1] == 'a':
             b.append(m[0])
-    if b == 0:
+    if b == []:
         b = ["x"]
 
+   
             
     symboltable = ""
     for lambs in b:
         symboltable += (lambs+"=Symbol(\""+lambs+"\")\n")
         
     if a[1]:
+            
             a = a[0]
                         
             if t != 0: #We are dealing with a differential equation
@@ -123,6 +126,7 @@ def solver(a):
           
             
             if t != 0: #We are dealing with a differential equation
+                
                 a = ctp(a,b[0],t) #converting everything to a diff that is function in variable b[0]
 
                 symboltable +=t+"=Symbol(\""+t+"\")\n"
