@@ -20,3 +20,7 @@ and parentheses are placed around the subexpressions.
 
 Given more time, we would like to make this function capable of parsing more complex
 math expressions, such as "to the power of" and "square root of."
+
+##Solving equations
+
+An important part of the project was implementing a method that turned a standard polynomial input into something that sympi would understand. It required replacing any exponent symbols with two asterisks (the python symbol for exponentiation) and also putting any multiplication symbols between two variables or a variable and a number if there isn't already an operation there. The first implementation of it had an oversight for if there were two variables but this was very easily patched.
