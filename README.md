@@ -17,3 +17,6 @@ and parentheses are placed around the subexpressions.
 >>> mathparse.make_arith_string("divide fourteen times seventy three by five minus two")
 '(14*73)/(5-2)'
 ```
+
+Given more time, we would like to make this function capable of parsing more complex
+math expressions, such as "to the power of" and "square root of."
