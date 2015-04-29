@@ -1,7 +1,7 @@
-## Swagbot
+# Swagbot
 A chatbot that does math (or at least tries to)
 
-# Parsing math text
+## Parsing math text
 
 An important part of Swagbot is parsing math sentences in English into symbolic
 notation.  First, the verb is found in the sentence.  A rough order of operations
