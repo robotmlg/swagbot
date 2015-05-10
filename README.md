@@ -30,4 +30,16 @@ One of the tasks I was assigned was to design an insult generator for the bot. T
 
 For example, "Ah, you must be a fascinating trollop" throws a whole new spin on the insult game. If that fascinating were replaced with disgusting the insult could easily be disregarded as some barbarian joke not fitting of the Swagbot. But instead it leaves the person wondering about the suttle undertone of the Swagbot's intentions. It shrouds the insult in mystique and makes the Swagbot seem even more omnipotent. These types of insults can  truly lead to some serious emotional damage and I think the insult generator has been one of the crowning accomplishments of our Swagbot Project. 
 
+##Wikipedia - Thanassi Natsis
 
+My role in the programming of the chatbot was to allow it to be able to pull information from Wikipedia.
+The goal was to allow it to give summary information about a person or topic and to give birth and death dates.
+In order to obtain summary information, it was simply a task of giving the name to the Wikipedia API and then any information in parentheses was filtered out because it was usually about pronunciation.
+For the birth and death information, the url was needed and used to obtain the html of the page.
+The html was parsed for the birth and death dates and filtered out any unnecessary html or other information.
+
+Sample input: Who is Euler?
+Sample Output: Leonhard Euler was a pioneering Swiss mathematician and physicist. He made important discoveries in fields as diverse as infinitesimal calculus and graph theory. 
+
+Sample input: When was Euler born?
+Sample Output: 1707-04-15
