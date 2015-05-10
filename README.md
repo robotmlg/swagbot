@@ -24,3 +24,10 @@ math expressions, such as "to the power of" and "square root of."
 ## Solving equations - Roland Gorzkowski
 
 An important part of the project was implementing a method that turned a standard polynomial input into something that sympi would understand. It required replacing any exponent symbols with two asterisks (the python symbol for exponentiation) and also putting any multiplication symbols between two variables or a variable and a number if there isn't already an operation there. The first implementation of it had an oversight for if there were two variables but this was very easily patched.
+
+## Generating some finger-lickin good insults - Matthew Lee
+One of the tasks I was assigned was to design an insult generator for the bot. There are some interesting design choices when it comes to generating insults. It is easy to just string together a bunch of harsh words and come out with a crude insult that barely inflicts any pain. In my quest for quality insults I've found that often the most amusing insults comes from combinations of words that seem random but also flow together nicely. In order to do this you must not have a word repertoire that consists only of words such as stinky, grimy, terrible etc. Instead, you must throw in what I like to call "Game Changers". For example, when you have a linking verb such as "Fascinating" in an insult it leads to some amazingly funny insults. 
+
+For example, "Ah, you must be a fascinating trollop" throws a whole new spin on the insult game. If that fascinating were replaced with disgusting the insult could easily be disregarded as some barbarian joke not fitting of the Swagbot. But instead it leaves the person wondering about the suttle undertone of the Swagbot's intentions. It shrouds the insult in mystique and makes the Swagbot seem even more omnipotent. These types of insults can  truly lead to some serious emotional damage and I think the insult generator has been one of the crowning accomplishments of our Swagbot Project. 
+
+
